@@ -21,15 +21,15 @@ const (
 )
 
 var (
-	urls      []*url.URL
-	continue_ bool
+	urls []*url.URL
+	//continue_ bool
 
 	// http client to be used
 	client = http.DefaultClient
 
 	// colour printers
-	errorPrinter   = colour.New(colour.FgHiRed)
-	successPrinter = colour.New(colour.FgHiGreen)
+	errorPrinter = colour.New(colour.FgHiRed)
+	//successPrinter = colour.New(colour.FgHiGreen)
 
 	// regex for urls
 	urlScanner *regexp.Regexp
@@ -138,7 +138,7 @@ func init() {
 	} else {
 		// continue from last
 		if strings.ToLower(args[0]) == "continue" {
-			continue_ = true
+			//continue_ = true
 		} else {
 			urls = make([]*url.URL, len(args))
 			for i, arg := range args {
