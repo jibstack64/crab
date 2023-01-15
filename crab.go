@@ -18,6 +18,7 @@ const (
 	path     = "store.json" // path to store formed tree to
 	maxDepth = 100
 	cloak    = "Mozilla/5.0 (X11; Linux x86_64; rv:108.0) Gecko/20100101 Firefox/108.0" // cloak user-agent
+	method   = "HEAD"
 )
 
 var (
@@ -156,19 +157,19 @@ func init() {
 	// ensure all urls are valid
 	for _, uri := range urls {
 		urist := uri.String() // get raw url
-		req, err := http.NewRequest("HEAD", urist, nil)
+		req, err := http.NewRequest(method, urist, nil)
 		req.Header.Set("User-Agent", cloak)
 		if err != nil {
-			errorPrinter.Printf("failed to form HEAD request to url: '%s'.\n", urist)
+			errorPrinter.Printf("failed to form %s request to url: '%s'.\n", method, urist)
 			os.Exit(1)
 		}
 		// send request
 		resp, err := client.Do(req)
 		if err != nil {
-			errorPrinter.Printf("failed to send HEAD request to url: '%s'.\n", urist)
+			errorPrinter.Printf("failed to send %s request to url: '%s'.\n", method, urist)
 			os.Exit(1)
 		} else if resp.StatusCode < 200 || resp.StatusCode > 299 {
-			errorPrinter.Printf("received bad whilst sending HEAD request: '%d'.\n", resp.StatusCode)
+			errorPrinter.Printf("received bad whilst sending %s request: '%d'.\n", method, resp.StatusCode)
 			os.Exit(1)
 		}
 	}
